@@ -73,7 +73,7 @@ public class FindHandler implements CommandHandler {
 	private SendMessage select(Message message, String findPart, String block) {
 		Deque<Card> results = new ArrayDeque<>();
 		Pattern p = Pattern.compile("(?iu)(" + findPart + ")");
-		Document document = Jsoup.connect(RequestTemplate.REQUEST.getRequest()).get();
+		Document document = Jsoup.connect(RequestTemplate.REQUEST.getRequest()).userAgent("Mozilla").get();
 		Elements employees = document.select(block);
 
 		for (Element employee : employees) {
