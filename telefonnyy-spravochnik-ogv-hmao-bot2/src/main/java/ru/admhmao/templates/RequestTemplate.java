@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum RequestTemplate {
 
-	REQUEST("https://admhmao.ru/organy-vlasti/telefonnyy-spravochnik-ogv-hmao/");
+	REQUEST("https://admhmao.ru/organy-vlasti/telefonnyy-spravochnik-ogv-hmao");
 
 	private final String request;
 }

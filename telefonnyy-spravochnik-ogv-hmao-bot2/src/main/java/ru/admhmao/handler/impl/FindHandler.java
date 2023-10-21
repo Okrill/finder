@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,6 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import lombok.SneakyThrows;
 import ru.admhmao.bpp.annotation.CommandHandlerMethod;
 import ru.admhmao.commands.Command;
 import ru.admhmao.handler.CommandHandler;
@@ -23,6 +25,7 @@ import ru.admhmao.model.Card;
 import ru.admhmao.parser.CardParser;
 import ru.admhmao.parser.CommandParser;
 import ru.admhmao.templates.AnswerTemplate;
+import ru.admhmao.templates.RequestTemplate;
 
 /**
  * Handler class for command that use {@link CallbackQuery} as argument
@@ -38,9 +41,6 @@ public class FindHandler implements CommandHandler {
 
 	@Autowired
 	private CardParser cardParser;
-
-	@Autowired
-	private Document document;
 
 	/**
 	 * Message handler that invoke after {@link Command.CONTACTS}
@@ -69,9 +69,11 @@ public class FindHandler implements CommandHandler {
 		return select(message, post, "div.post");
 	}
 
+	@SneakyThrows
 	private SendMessage select(Message message, String findPart, String block) {
 		Deque<Card> results = new ArrayDeque<>();
 		Pattern p = Pattern.compile("(?iu)(" + findPart + ")");
+		Document document = Jsoup.connect(RequestTemplate.REQUEST.getRequest()).get();
 		Elements employees = document.select(block);
 
 		for (Element employee : employees) {

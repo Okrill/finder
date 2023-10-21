@@ -21,20 +21,4 @@ public class AppConfiguration {
 		return new SetWebhook();
 	}
 
-	@Bean
-	Document setDocument() {
-		return getDocument();
-	}
-
-	//TODO Сделать refresh
-	//@Async
-	//@Scheduled(fixedRate = 1, timeUnit = TimeUnit.HOURS)
-	private void refreshDocument(Document document) {
-		document = getDocument();
-	}
-
-	@SneakyThrows
-	private Document getDocument() {
-		return Jsoup.connect(RequestTemplate.REQUEST.getRequest()).get();
-	}
 }
