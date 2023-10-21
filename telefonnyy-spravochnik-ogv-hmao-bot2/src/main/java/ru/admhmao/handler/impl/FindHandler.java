@@ -13,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -73,7 +74,8 @@ public class FindHandler implements CommandHandler {
 	private SendMessage select(Message message, String findPart, String block) {
 		Deque<Card> results = new ArrayDeque<>();
 		Pattern p = Pattern.compile("(?iu)(" + findPart + ")");
-		Document document = Jsoup.connect(RequestTemplate.REQUEST.getRequest()).userAgent("Mozilla").get();
+		String html = new RestTemplate().getForObject(RequestTemplate.REQUEST.getRequest(), String.class);
+		Document document = Jsoup.parse(html);
 		Elements employees = document.select(block);
 
 		for (Element employee : employees) {
