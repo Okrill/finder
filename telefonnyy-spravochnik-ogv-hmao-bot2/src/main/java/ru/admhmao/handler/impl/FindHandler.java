@@ -89,10 +89,10 @@ public class FindHandler implements CommandHandler {
 		if (results.isEmpty()) {
 			return answerTemplate
 				.getMessage(message, "Ничего не найдено, либо неправильно осуществлен поиск\n"
-					+ "		Примеры поиска по имени:\n"
-					+ "/fio уткин\n"
-					+ "/contacts utkinaEG@admhmao.ru\n"
-					+ "/post консультат\n");
+					+ "Примеры поиска:\n"
+					+ "		/fio уткин\n"
+					+ "     /contacts utkinaEG@admhmao.ru\n"
+					+ "     /post консультат\n");
 		}
 		return answerTemplate
 			.getMessage(message, results.stream()
