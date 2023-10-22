@@ -10,7 +10,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 import lombok.SneakyThrows;
 
@@ -26,7 +25,6 @@ class TelefonnyySpravochnikOgvHmaoApplicationTests {
 	private static final String PASSWORD = "zo6eqh";
 
 	private static final String URL = "https://admhmao.ru/organy-vlasti/telefonnyy-spravochnik-ogv-hmao/";
-	private static final String URL_2 = "https://google.com";
 
 	@Test
 	@SneakyThrows
@@ -44,6 +42,7 @@ class TelefonnyySpravochnikOgvHmaoApplicationTests {
 		HttpClient httpClient = clientBuilder.build();
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		factory.setHttpClient(httpClient);
-		System.out.println(new RestTemplate(factory).getForObject(URL, String.class));
+		// System.out.println(new RestTemplate(factory).getForObject(URL,
+		// String.class));
 	}
 }
