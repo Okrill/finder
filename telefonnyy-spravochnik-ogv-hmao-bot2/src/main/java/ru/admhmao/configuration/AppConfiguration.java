@@ -1,8 +1,11 @@
 package ru.admhmao.configuration;
 
-import java.io.File;
+import static java.util.stream.Collectors.joining;
 
-import org.apache.commons.io.FileUtils;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.context.annotation.Bean;
@@ -26,9 +29,10 @@ public class AppConfiguration {
 	@Bean
 	@SneakyThrows
 	Document setDocument() {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("html.txt").getFile());
-		String data = FileUtils.readFileToString(file, "UTF-8");
+		Path path = Path.of("src", "main", "resources", "html.txt");
+		String data = Files.readAllLines(path, StandardCharsets.UTF_8)
+			.stream()
+			.collect(joining("\n"));
 		Document document = Jsoup.parse(data);
 		return document;
 	}
