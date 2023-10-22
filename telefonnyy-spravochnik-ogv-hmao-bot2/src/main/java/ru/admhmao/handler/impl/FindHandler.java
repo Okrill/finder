@@ -7,7 +7,6 @@ import java.util.Deque;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -25,7 +24,6 @@ import ru.admhmao.model.Card;
 import ru.admhmao.parser.CardParser;
 import ru.admhmao.parser.CommandParser;
 import ru.admhmao.templates.AnswerTemplate;
-import ru.admhmao.templates.RequestTemplate;
 
 /**
  * Handler class for command that use {@link CallbackQuery} as argument
@@ -41,6 +39,9 @@ public class FindHandler implements CommandHandler {
 
 	@Autowired
 	private CardParser cardParser;
+
+	@Autowired
+	private Document document;
 
 	/**
 	 * Message handler that invoke after {@link Command.CONTACTS}
@@ -73,7 +74,6 @@ public class FindHandler implements CommandHandler {
 	private SendMessage select(Message message, String findPart, String block) {
 		Deque<Card> results = new ArrayDeque<>();
 		Pattern p = Pattern.compile("(?iu)(" + findPart + ")");
-		Document document = Jsoup.connect(RequestTemplate.REQUEST.getRequest()).get();
 		Elements employees = document.select(block);
 
 		for (Element employee : employees) {
